@@ -1,0 +1,17 @@
+{
+  "name": "kable-redis",
+  "version": "0.0.1",
+  "description": "Kable sentinel for Redis",
+  "main": "main.js",
+  "bin": {
+    "kable": "./bin/kable.js"
+  },
+  "dependencies": {
+    "arg": "^4.1.2",
+    "kable-core": "https://github.com/11ume/kable-core.git",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "ava": "^2.4.0"
+  }
+}
