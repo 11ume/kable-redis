@@ -17,9 +17,13 @@ function connect(k, options) {
     })
 
     client.on('reconnecting', () => {
-        if (k.avaliable) {
+        if (k.state === 'STOPPED') {
             k.doing('reconnecting')
         }
+    })
+
+    client.on('error', (err) => {
+        if (err.code === 'ECONNREFUSED') return
     })
 }
 
@@ -34,11 +38,14 @@ function run({
         id: 'redis-node'
         , description
     }
-
     const options = {
         host
         , port
         , password
+    }
+
+    if (options.password === null) {
+        delete options.password
     }
 
     const k = kable(id, {
@@ -49,7 +56,7 @@ function run({
     })
 
     return k.up(false).then(() => {
-        k.doing('Starting')
+        k.doing('starting')
         connect(k, options)
         return k
     })
